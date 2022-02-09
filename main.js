@@ -59,7 +59,7 @@ db.collection("traffic").onSnapshot(function (querySnapshot) {
             };
             CURRENT_AMOUNT = total;
         });
-    } else if (index == 2){
+    } else{
         index = 0;
         return;
     }
