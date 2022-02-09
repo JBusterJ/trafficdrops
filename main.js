@@ -42,6 +42,8 @@ function traffic() {
 
 var index = 0;
 
+var CURRENT_AMOUNT = 0;
+
 // whenever new data is added to database, output its value to console
 db.collection("traffic").onSnapshot(function (querySnapshot) {
     index++;
@@ -52,9 +54,10 @@ db.collection("traffic").onSnapshot(function (querySnapshot) {
             console.log(total + "th visitor has... well... visited the website?");
         }).then(function () {
             console.log(total);
-            for (var i = 0; i < total; i++) {
+            for (var i = 0; i < Math.abs(CURRENT_AMOUNT - total); i++) {
                 generateDrop();
-            }
+            };
+            CURRENT_AMOUNT = total;
         });
     } else if (index == 2){
         index = 0;
