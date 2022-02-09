@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: rgb(20, 18, 26);
+        }
+        canvas {
+            /* center to screen */
+            background-color: rgb(25, 24, 27);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <!-- this is basically the same html file just without anything in it -->
+    <canvas id="myCanvas" width=30000000000000000000000000000000000000 height=30000000000000000000000000000000000000></canvas>
+</body>
+<!-- here is where the script tags should go -->
+<script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-firestore.js"></script>
+<!-- make sure to add ^^^ these BEFORE you reference your javascript file -->
+<script src="main.js"></script> <!-- referencing main.js, any code from there will work in here -->
+</html>
