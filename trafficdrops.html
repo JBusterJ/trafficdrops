@@ -9,7 +9,7 @@
             overflow: hidden;
             background-color: rgb(20, 18, 26);
         }
-        canvas {
+        #myCanvas {
             /* center to screen */
             background-color: rgb(25, 24, 27);
             position: absolute;
@@ -17,11 +17,30 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- this is basically the same html file just without anything in it -->
-    <canvas id="myCanvas" width=30000000000000000000000000000000000000 height=30000000000000000000000000000000000000></canvas>
+    <!-- <canvas id="myCanvas" width=30000000000000000000000000000000000000 height=30000000000000000000000000000000000000></canvas> -->
+    <div id="myCanvas"></div>
 </body>
 <!-- here is where the script tags should go -->
 <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
