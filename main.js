@@ -49,12 +49,12 @@ db.collection("traffic").onSnapshot(function (querySnapshot) {
     index++;
     if(index == 1){
         var total = 0;
+        getPreviousDrops();
         db.collection("traffic").doc("users").get().then(function (doc) {
             total = doc.data().amount;
             console.log(total + "th visitor has... well... visited the website?");
         }).then(function () {
             console.log(total);
-            getPreviousDrops();
             for (var i = 0; i < Math.abs(CURRENT_AMOUNT - total); i++) {
                 if (i == Math.abs(CURRENT_AMOUNT - total) - 1) {
                     generateDrop();
