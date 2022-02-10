@@ -54,8 +54,11 @@ db.collection("traffic").onSnapshot(function (querySnapshot) {
             console.log(total + "th visitor has... well... visited the website?");
         }).then(function () {
             console.log(total);
+            getPreviousDrops();
             for (var i = 0; i < Math.abs(CURRENT_AMOUNT - total); i++) {
-                generateDrop();
+                if (i == Math.abs(CURRENT_AMOUNT - total) - 1) {
+                    generateDrop();
+                }
             };
             CURRENT_AMOUNT = total;
         });
@@ -65,11 +68,45 @@ db.collection("traffic").onSnapshot(function (querySnapshot) {
     }
 });
 
-function generateDrop() {
-    ctx.strokeStyle = "#" + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+function getPreviousDrops(){
+    db.collection("drop_positions").get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
+            var position = [doc.data().x, doc.data().y];
+            var colour = doc.data().colour;
+            var radius = doc.data().radius;
+            console.log(`The position of this drop is [${position[0]}, ${position[1]}], and this drop has a colour of ${colour}`);
+            createDrop(position[0], position[1], colour, radius);
+        });
+    });
+}
+
+function createDrop(x, y, colour, radius){
+    ctx.strokeStyle = colour;
     ctx.beginPath();
-    ctx.arc(Math.floor(Math.random() * (window.innerWidth) + 1), Math.floor(Math.random() * (window.innerHeight) + 1), Math.floor(Math.random() * (50) + 25), 0, 20 * Math.PI);
+    ctx.arc(x, y, radius, 0, 20 * Math.PI);
     ctx.stroke();
+}
+
+function generateDrop() {
+    var x = Math.floor(Math.random() * (window.innerWidth) + 1);
+    var y = Math.floor(Math.random() * (window.innerHeight) + 1); 
+    var colour = "#" + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+    var radius = Math.floor(Math.random() * (50) + 25);
+
+    ctx.strokeStyle = colour;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 20 * Math.PI);
+    ctx.stroke();
+
+    db.collection("drop_positions").add({
+        x: Math.floor(Math.random() * (canvas.width - 50) + 25),
+        y: Math.floor(Math.random() * (canvas.height - 50) + 25),
+        colour: colour,
+        radius: radius
+    }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
 }
 
 console.log(screen.width, screen.height, window.innerHeight, window.innerHeight)
